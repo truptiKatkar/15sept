@@ -1,0 +1,31 @@
+.logo-container {
+  height: 100px;
+  width: 100px;
+}
+.logo {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.bg-dark {
+  background-color: #151f2c !important;
+}
+.mantine-Grid-inner {
+  height: 100%;
+  width: 100% !important;
+}
+.mantine-Container-root {
+  margin: 0px !important;
+  padding: 0px !important;
+}
+.mantine-TextInput-input, .mantine-PasswordInput-innerInput, .mantine-Input-input{
+	background-color: transparent !important;
+	color: #fff !important;
+}
+.text-center{
+  text-align: center;
+}
+.title{
+  font-size: 25px !important;
+}
+

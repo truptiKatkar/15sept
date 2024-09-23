@@ -1,0 +1,53 @@
+.header {
+  height: 60px; /* Use the appropriate unit */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  border-bottom: 1px solid gray;
+}
+
+.logo-image {
+  height: 50px;
+  width: 60px;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+@media (max-width: 1208px) {
+  .link {
+    height: 42px;
+    width: 100%;
+  }
+}
+
+.link:hover {
+  background-color: lightgray;
+}
+
+.subLink {
+  width: 100%;
+  padding: 10px 10px;
+  border-radius: 10px;
+}
+
+.subLink:hover {
+  background-color: lightgray;
+}
+
+.dropdownFooter {
+  background-color: lightgray;
+  margin: 10px;
+  margin-top: var(10px);
+  padding: 10px 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid gray;
+}
