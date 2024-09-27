@@ -3,23 +3,35 @@ import "./App.css";
 import "./index.css";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
-import AdminRoutes from "./routes/AdminRoutes";
-import UserRoutes from "./routes/UserRoutes";
+import DynamicRouteMiddleware from "./middleware/RouteMiddleware";
+import Login from "./pages/Auth/Login";
+import routesConfig from "./config/RoutesConfig";
 
 function App() {
-  // const userRole: string = "user";
+  const userRole: string = "admin";
   return (
     <>
       <MantineProvider>
         <Routes>
-        <Route path="/admin/*" element={<AdminRoutes />} />
-        <Route path="/user/*" element={<UserRoutes />} />
-          {/* {userRole === "admin" && (
-            <Route path="/admin/*" element={<AdminRoutes />} />
-          )}
-          {userRole === "user" && (
-            <Route path="/user/*" element={<UserRoutes />} />
-          )} */}
+          <Route path="/" element={<Login />} />
+          <Route
+            element={
+              <DynamicRouteMiddleware
+                userRole={userRole}
+                routes={routesConfig}
+              />
+            }
+          >
+            {routesConfig
+              .filter((route:any) => route.role === userRole)
+              .map((route:any, index:number) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              ))}
+          </Route>
         </Routes>
       </MantineProvider>
     </>

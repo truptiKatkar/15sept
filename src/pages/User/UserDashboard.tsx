@@ -1,5 +1,11 @@
-import { Box } from "@mantine/core";
+import React from 'react';
 
-export const UserDashboard = () => {
-  return <Box>UserDashboard</Box>;
+const UserDashboard: React.FC = () => {
+  return (
+    <div>
+      <h1>User Dashboard</h1>
+    </div>
+  );
 };
+
+export default UserDashboard; 
