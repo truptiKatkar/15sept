@@ -1,14 +1,21 @@
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { UserDashboard } from "../pages/User/UserDashboard";
-import { UsersLogin } from "../pages/Auth/UsersLogin";
+
+const UserDashboard = React.lazy(() => import("../pages/User/UserDashboard"));
+const UsersLogin = React.lazy(() => import("../pages/Auth/UsersLogin"));
 
 const UserRoutes = () => {
+  console.log('Rendering UserRoutes');
+  
   return (
-    <Routes>
-      <Route path="login" element={<UsersLogin />} />
-      <Route path="dashboard" element={<UserDashboard />} />
-    </Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="login" element={<UsersLogin />} />
+        <Route path="dashboard" element={<UserDashboard />} />
+      </Routes>
+    </Suspense>
   );
 };
 
 export default UserRoutes;
+

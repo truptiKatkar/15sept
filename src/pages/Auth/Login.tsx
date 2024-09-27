@@ -10,7 +10,7 @@ import { getImage } from "../../utils/GetImage";
 import "../../styles/Login.css";
 import { useState } from "react";
 
-const Login = () => {
+const Login: React.FC = () => {
   const logo = getImage("logo.webp");
   const background = getImage("login.jpg");
   const [email, setEmail] = useState("");
