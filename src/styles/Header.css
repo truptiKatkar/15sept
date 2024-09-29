@@ -1,8 +1,9 @@
 .header {
-  height: 60px; /* Use the appropriate unit */
+  height: 60px; 
   padding-left: 2rem;
   padding-right: 2rem;
   border-bottom: 1px solid gray;
+  background-color: #151f2c !important;
 }
 
 .logo-image {
@@ -17,7 +18,7 @@
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   text-decoration: none;
-  color: #000;
+  color: #fff;
   font-weight: 500;
   font-size: 15px;
 }
@@ -31,6 +32,7 @@
 
 .link:hover {
   background-color: lightgray;
+  color: #151f2c;
 }
 
 .subLink {

@@ -1,119 +1,144 @@
 import {
+  Anchor,
   Box,
   Button,
-  Card,
-  Container,
-  Grid,
+  Checkbox,
+  Divider,
+  Group,
+  Paper,
+  PaperProps,
   PasswordInput,
+  Stack,
   Text,
   TextInput,
 } from "@mantine/core";
 import "../../styles/Login.css";
 import { Header } from "./Header";
 
-// export const UsersLogin = () => {
-//   return (
-//     <Container fluid my="md" className="h-100 m-0">
-//       <Header />
-//       <Grid className="h-100">
-//         <Grid.Col span={3}></Grid.Col>
-//         <Grid.Col span={6} className="h-100 flex-box">
-//           <Box>
-//             <Card
-//               withBorder
-//               padding="md"
-//               shadow="lg"
-//               className="bg-dark rounded-2"
-// 			  p={40}
-//             >
-//               <Card.Section mb={10} px={25}>
-//                 <Text fw={700} className="text-white title">
-//                   Login to your account
-//                 </Text>
-//               </Card.Section>
-//               <Card.Section p={3}>
-//                 <Box className="text-white" px={25}>
-//                   <TextInput
-//                     mb={10}
-//                     label="Email/Username"
-//                     placeholder="Enter your email or username"
-//                     required
-//                   />
-//                   <PasswordInput
-//                     // value={value}
-//                     // onChange={setValue}
-//                     mb={30}
-//                     placeholder="Your password"
-//                     label="Password"
-//                     required
-//                   />
-//                   <Box className="text-center">
-//                     <Button fullWidth mb={15}>
-//                       Sign In
-//                     </Button>
-//                   </Box>
-//                 </Box>
-//               </Card.Section>
-//             </Card>
-//           </Box>
-//         </Grid.Col>
-//         <Grid.Col span={3}></Grid.Col>
-//       </Grid>
-//     </Container>
-//   );
-// };
+import React from "react";
+import { upperFirst, useToggle } from "@mantine/hooks";
+import { useForm } from "@mantine/form";
+import { GoogleButton } from "../../components/common/GoogleButton";
+import { TwitterButton } from "../../components/common/TwitterButton";
 
-import React from 'react';
+const UsersLogin: React.FC = (props: PaperProps) => {
+  const [type, toggle] = useToggle(["login", "register"]);
+  const form = useForm({
+    initialValues: {
+      email: "",
+      name: "",
+      password: "",
+      terms: true,
+    },
 
-const UsersLogin: React.FC = () => {
+    validate: {
+      email: (val) => (/^\S+@\S+$/.test(val) ? null : "Invalid email"),
+      password: (val) =>
+        val.length <= 6
+          ? "Password should include at least 6 characters"
+          : null,
+    },
+  });
+
   return (
-    <Container fluid my="md" className="h-100 m-0">
+    <>
       <Header />
-      <Grid className="h-100">
-        <Grid.Col span={3}></Grid.Col>
-        <Grid.Col span={6} className="h-100 flex-box">
-          <Box>
-            <Card
-              withBorder
-              padding="md"
-              shadow="lg"
-              className="bg-dark rounded-2"
-			  p={40}
-            >
-              <Card.Section mb={10} px={25}>
-                <Text fw={700} className="text-white title">
-                  Login to your account
-                </Text>
-              </Card.Section>
-              <Card.Section p={3}>
-                <Box className="text-white" px={25}>
-                  <TextInput
-                    mb={10}
-                    label="Email/Username"
-                    placeholder="Enter your email or username"
-                    required
-                  />
-                  <PasswordInput
-                    // value={value}
-                    // onChange={setValue}
-                    mb={30}
-                    placeholder="Your password"
-                    label="Password"
-                    required
-                  />
-                  <Box className="text-center">
-                    <Button fullWidth mb={15}>
-                      Sign In
-                    </Button>
-                  </Box>
-                </Box>
-              </Card.Section>
-            </Card>
-          </Box>
-        </Grid.Col>
-        <Grid.Col span={3}></Grid.Col>
-      </Grid>
-    </Container>
+      <Box className="flex-box h-100">
+        <Paper
+          className="users-form"
+          shadow="md"
+          radius="md"
+          p="xl"
+          withBorder
+          {...props}
+        >
+          <Text size="lg" fw={500}>
+            {upperFirst(type)} Yourself
+          </Text>
+
+          <Group grow mb="md" mt="md">
+            <GoogleButton radius="xl">Google</GoogleButton>
+            <TwitterButton radius="xl">Twitter</TwitterButton>
+          </Group>
+
+          <Divider
+            label="Or continue with email"
+            labelPosition="center"
+            my="lg"
+          />
+
+          <form onSubmit={form.onSubmit(() => {})}>
+            <Stack>
+              {type === "register" && (
+                <TextInput
+                  label="Name"
+                  placeholder="Your name"
+                  value={form.values.name}
+                  onChange={(event) =>
+                    form.setFieldValue("name", event.currentTarget.value)
+                  }
+                  radius="md"
+                />
+              )}
+
+              <TextInput
+                required
+                label="Email"
+                placeholder="Enter your email or username"
+                value={form.values.email}
+                onChange={(event) =>
+                  form.setFieldValue("email", event.currentTarget.value)
+                }
+                error={form.errors.email && "Invalid email"}
+                radius="md"
+              />
+
+              <PasswordInput
+                required
+                label="Password"
+                placeholder="Your password"
+                value={form.values.password}
+                onChange={(event) =>
+                  form.setFieldValue("password", event.currentTarget.value)
+                }
+                error={
+                  form.errors.password &&
+                  "Password should include at least 6 characters"
+                }
+                radius="md"
+              />
+
+              {type === "register" && (
+                <Checkbox
+                  label="I accept terms and conditions"
+                  checked={form.values.terms}
+                  onChange={(event) =>
+                    form.setFieldValue("terms", event.currentTarget.checked)
+                  }
+                />
+              )}
+            </Stack>
+
+            <Group justify="space-between" mt="xl">
+              <Anchor
+                component="button"
+                type="button"
+                c="dimmed"
+                onClick={() => toggle()}
+                size="xs"
+              >
+                {type === "register"
+                  ? "Already have an account? Login"
+                  : "Don't have an account? Register"}
+              </Anchor>
+              <Button type="submit" radius="xl">
+                {upperFirst(type)}
+              </Button>
+            </Group>
+          </form>
+        </Paper>
+      </Box>
+    </>
   );
 };
 

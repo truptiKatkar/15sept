@@ -8,7 +8,7 @@ import Login from "./pages/Auth/Login";
 import routesConfig from "./config/RoutesConfig";
 
 function App() {
-  const userRole: string = "admin";
+  const userRole: string = "user";
   return (
     <>
       <MantineProvider>
